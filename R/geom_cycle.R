@@ -74,18 +74,24 @@ GeomCycle <- ggplot2::ggproto(
 #' @examples
 #' ##Apple stock price with recessions and bear markets shaded
 #' ##First, load the bear market dates and recession dates
+#' data(AAPL.data)
 #' data(bear_dates); data(recession_dates)
 #' p <- ggplot(AAPL.data, aes(x = index, y = AAPL.Close)) +
 #'   geom_line() +
 #'   theme_bw()
-#' p
+#'
+#' # Defaults to NBER recession bars
+#' p + geom_cycle()
+#'
+#' # Bear market shading 
 #' p + geom_cycle(dates = bear_dates)
+#'
+#' # Recession and bear market shading 
 #' p + geom_cycle(dates = recession_dates) +
 #'   geom_cycle(dates = bear_dates, fill="gray50")
-#' 
 #'
 #' @export
-geom_cycle <- function(dates = ggts::recession_dates, fill = "#003F87", alpha = 0.2,
+geom_cycle <- function(dates = ggcycle::recession_dates, fill = "#003F87", alpha = 0.2,
                        geom = "rect", position = "identity", show.legend = FALSE,
                        inherit.aes = TRUE, ...) {
     ggplot2::layer(

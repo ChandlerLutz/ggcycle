@@ -7,7 +7,7 @@ dates are \code{recession_dates} corresponding to dates for NBER
 recessions. The data also can use \code{bear_dates}}
 \usage{
 geom_cycle(
-  dates = ggts::recession_dates,
+  dates = ggcycle::recession_dates,
   fill = "#003F87",
   alpha = 0.2,
   geom = "rect",
@@ -50,14 +50,20 @@ recessions. The data also can use \code{bear_dates}
 \examples{
 ##Apple stock price with recessions and bear markets shaded
 ##First, load the bear market dates and recession dates
+data(AAPL.data)
 data(bear_dates); data(recession_dates)
 p <- ggplot(AAPL.data, aes(x = index, y = AAPL.Close)) +
   geom_line() +
   theme_bw()
-p
+
+# Defaults to NBER recession bars
+p + geom_cycle()
+
+# Bear market shading 
 p + geom_cycle(dates = bear_dates)
+
+# Recession and bear market shading 
 p + geom_cycle(dates = recession_dates) +
   geom_cycle(dates = bear_dates, fill="gray50")
-
 
 }
